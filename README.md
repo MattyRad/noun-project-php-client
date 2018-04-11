@@ -7,9 +7,9 @@
 ## Usage
 
 ```php
-$noun_project = new NounProject\Client($http_client);
+$noun_project = new NounProject\Client($key, $secret);
 
-$result = $noun_project->send(new NounProject\Request\Collection($id = 1));
+$result = $noun_project->send(new NounProject\Request\Icons($id = 1));
 
-$collection_data = $result->getCollection();
+$icons = $result->getIcons();
 ```
