@@ -16,6 +16,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->client = new Client($this->http->reveal());
     }
 
+    // bottom-side, which is better?
     public function testSend_sendsRequestDataThroughTheHttpClient()
     {
         $request = $this->mockRequest();
@@ -25,6 +26,18 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $result = $this->client->send($request);
 
         $this->http->request($request->getHttpType(), $request->getUri())->shouldHaveBeenCalled();
+    }
+
+    // top-side, which is better?
+    public function testSend_sendsRequestDataThroughTheHttpClientTopSideTest()
+    {
+        $request = $this->mockRequest();
+
+        $this->http->request($request->getHttpType(), $request->getUri())
+            ->willReturn(new HttpResponse)
+            ->shouldBeCalled();
+
+        $result = $this->client->send($request);
     }
 
     private function mockRequest($http_type = 'GET', $uri = '/collection')
