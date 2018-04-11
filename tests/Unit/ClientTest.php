@@ -4,25 +4,7 @@ use MattyRad\NounProject\Client;
 use MattyRad\NounProject\Request;
 use MattyRad\Support;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
-
-class ResultSample extends Support\Result\Success {}
-
-class RequestSample extends Request {
-    public function getHttpType(): string
-    {
-        return 'GET';
-    }
-
-    public function getUri(): string
-    {
-        return '/uri';
-    }
-
-    public function createResult($response_data): Support\Result
-    {
-        return new ResultSample;
-    }
-}
+use Prophecy\Argument;
 
 class ClientTest extends \PHPUnit\Framework\TestCase
 {
@@ -35,10 +17,23 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
     public function testSend_sendsRequestDataThroughTheHttpClient()
     {
-        $request = new RequestSample;
+        $request = $this->mockRequest();
 
         $result = $this->client->send($request);
 
         $this->http->request($request->getHttpType(), $request->getUri())->shouldHaveBeenCalled();
+    }
+
+    private function mockRequest($http_type = 'GET', $uri = '/collection')
+    {
+        $result = $this->prophesize(Support\Result::class)->reveal();
+
+        $r = $this->prophesize(Request::class);
+
+        $r->getHttpType()->willReturn($http_type);
+        $r->getUri()->willReturn($uri);
+        $r->createResult(Argument::any())->willReturn($result);
+
+        return $r->reveal();
     }
 }
