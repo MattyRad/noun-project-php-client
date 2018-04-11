@@ -1,0 +1,16 @@
+{
+    "name": "mattyrad/noun-project-php-client",
+    "description": "A PHP client to interface with The Noun Project",
+    "authors": [
+        {
+            "name": "Matthew Radford",
+            "email": "mradford@protonmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.1"
+    }
+}
