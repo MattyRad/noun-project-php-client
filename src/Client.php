@@ -15,8 +15,8 @@ class Client
 
     public function send(Request $request): Support\Result
     {
-        $data = $this->http->request($request->getHttpType(), $request->getUri());
+        $response = $this->http->request($request->getHttpType(), $request->getUri());
 
-        return $request->createResult($data);
+        return $request->createResult($response->getBody());
     }
 }

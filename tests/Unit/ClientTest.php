@@ -4,6 +4,7 @@ use MattyRad\NounProject\Client;
 use MattyRad\NounProject\Request;
 use MattyRad\Support;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
+use GuzzleHttp\Psr7\Response as HttpResponse;
 use Prophecy\Argument;
 
 class ClientTest extends \PHPUnit\Framework\TestCase
@@ -18,6 +19,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     public function testSend_sendsRequestDataThroughTheHttpClient()
     {
         $request = $this->mockRequest();
+
+        $this->http->request(Argument::cetera())->willReturn(new HttpResponse);
 
         $result = $this->client->send($request);
 
