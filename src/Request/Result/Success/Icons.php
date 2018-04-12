@@ -1,23 +1,19 @@
 <?php namespace MattyRad\NounProject\Request\Result\Success;
 
 use MattyRad\Support;
+use MattyRad\NounProject\IconCollection;
 
 class Icons extends Support\Result\Success
 {
     private $icons;
 
-    public function __construct(array $icons)
+    public function __construct(IconCollection $icons)
     {
         $this->icons = $icons;
     }
 
-    public function getIcons()
+    public function getIcons(): IconCollection
     {
-        return array_map(function ($icon_data) {
-            return [
-                'id' => (int) $icon_data['id'],
-                'svg_url' => $icon_data['icon_url'],
-            ];
-        }, $this->icons);
+        return $this->icons;
     }
 }

@@ -17,7 +17,7 @@ class Client
     private $api_secret;
     private $fake_http;
 
-    public function __construct(string $api_key, string $api_secret, bool $fake_http = true)
+    public function __construct(string $api_key, string $api_secret, bool $fake_http = false)
     {
         $this->api_key = $api_key;
         $this->api_secret = $api_secret;

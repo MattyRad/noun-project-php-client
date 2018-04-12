@@ -11,7 +11,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 {
     public function setUp()
     {
-        $this->client = new Client('key-abc123', 'secret-123');
+        $this->client = new Client('key-abc123', 'secret-123', true);
     }
 
     public function tearDown()
@@ -40,4 +40,13 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         return $r->reveal();
     }
+
+    /*public function testAsdf()
+    {
+        $client = new Client('', '');
+
+        $result = $client->send(new Request\Icons('feather', true));
+
+        var_dump($result->getIcons()->count());
+    }*/
 }
