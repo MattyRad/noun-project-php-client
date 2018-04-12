@@ -11,33 +11,21 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 {
     public function setUp()
     {
-        $this->http = $this->prophesize(HttpClientInterface::class);
-
-        $this->client = new Client($this->http->reveal());
+        $this->client = new Client('key-abc123', 'secret-123');
     }
 
-    // bottom-side, which is better?
-    public function testSend_sendsRequestDataThroughTheHttpClient()
+    public function tearDown()
     {
-        $request = $this->mockRequest();
-
-        $this->http->request(Argument::cetera())->willReturn(new HttpResponse);
-
-        $result = $this->client->send($request);
-
-        $this->http->request($request->getHttpType(), $request->getUri())->shouldHaveBeenCalled();
+        unset(
+            $this->client
+        );
     }
 
-    // top-side, which is better?
-    public function testSend_sendsRequestDataThroughTheHttpClientTopSideTest()
+    public function testSend_returnsResult()
     {
-        $request = $this->mockRequest();
+        $result = $this->client->send($this->mockRequest());
 
-        $this->http->request($request->getHttpType(), $request->getUri())
-            ->willReturn(new HttpResponse)
-            ->shouldBeCalled();
-
-        $result = $this->client->send($request);
+        $this->assertInstanceOf(Support\Result::class, $result);
     }
 
     private function mockRequest($http_type = 'GET', $uri = '/collection')
