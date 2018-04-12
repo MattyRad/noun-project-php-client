@@ -25,11 +25,6 @@ class Icons extends NounProject\Request
         $this->limit = $limit;
     }
 
-    public function getHttpType(): string
-    {
-        return 'GET';
-    }
-
     // FIXME: this could get cleaned up
     public function getUri(): string
     {
