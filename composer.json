@@ -1,10 +1,13 @@
 {
     "name": "mattyrad/noun-project-php-client",
     "description": "A PHP client to interface with The Noun Project",
+    "homepage": "https://github.com/MattyRad/noun-project-php-client",
+    "license": "MIT",
     "authors": [
         {
             "name": "Matthew Radford",
-            "email": "mradford@protonmail.com"
+            "email": "mradford@protonmail.com",
+            "homepage": "http://mradford.com"
         }
     ],
     "require": {

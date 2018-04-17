@@ -1,7 +1,6 @@
 <?php namespace MattyRad\NounProject\Unit\Tests;
 
-use MattyRad\NounProject\Client;
-use MattyRad\NounProject\Request;
+use MattyRad\NounProject;
 use MattyRad\Support;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
 use GuzzleHttp\Psr7\Response as HttpResponse;
@@ -11,42 +10,56 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 {
     public function setUp()
     {
-        $this->client = new Client('key-abc123', 'secret-123', true);
+        $this->http = $this->prophesize(HttpClientInterface::class);
+
+        $this->client = new NounProject\Client('key-abc123', 'secret-123', $this->http->reveal());
     }
 
     public function tearDown()
     {
         unset(
-            $this->client
+            $this->client,
+            $this->http
         );
     }
 
     public function testSend_returnsResult()
     {
-        $result = $this->client->send($this->mockRequest());
+        $this->http->request(Argument::cetera())->willReturn(new HttpResponse);
+
+        $result = $this->client->send($this->mockNounProjectRequest());
 
         $this->assertInstanceOf(Support\Result::class, $result);
     }
 
-    private function mockRequest($http_type = 'GET', $uri = '/collection')
+    public function testSend_returnsFailureResultOnApiErrors()
     {
-        $result = $this->prophesize(Support\Result::class)->reveal();
+        $this->http->request(Argument::cetera())->willThrow(new \Exception($error_description = 'something went wrong'));
 
-        $r = $this->prophesize(Request::class);
+        $result = $this->client->send($this->mockNounProjectRequest());
 
-        $r->getHttpType()->willReturn($http_type);
-        $r->getUri()->willReturn($uri);
-        $r->createResult(Argument::any())->willReturn($result);
-
-        return $r->reveal();
+        $this->assertInstanceOf(Support\Result\Failure::class, $result);
+        $this->assertInstanceOf(NounProject\Request\Result\Failure\ApiRequestFailed::class, $result);
+        $this->assertContains($error_description, $result->getReason());
     }
 
-    /*public function testAsdf()
+    public function testSend_sendsHttpRequestThroughClient()
     {
-        $client = new Client('', '');
+        $this->http->request(Argument::cetera())->willReturn(new HttpResponse);
 
-        $result = $client->send(new Request\Icons('feather', true));
+        $result = $this->client->send($request = $this->mockNounProjectRequest());
 
-        var_dump($result->getIcons()->count());
-    }*/
+        $this->http->request($request->getHttpType(), $request->getUri())->shouldHaveBeenCalled();
+    }
+
+    private function mockNounProjectRequest($http_type = 'GET', $uri = '/collection')
+    {
+        $request = $this->prophesize(NounProject\Request::class);
+
+        $request->getHttpType()->willReturn($http_type);
+        $request->getUri()->willReturn($uri);
+        $request->createResult(Argument::any())->willReturn($this->prophesize(Support\Result::class)->reveal());
+
+        return $request->reveal();
+    }
 }
