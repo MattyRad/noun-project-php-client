@@ -46,13 +46,13 @@ class Icons extends NounProject\Request
             $uri .= 'limit=' . urlencode($this->limit) . '&';
         }
 
-        return $uri;
+        return trim($uri, '&');
     }
 
     public function createResult(array $response_data): Support\Result
     {
         $icons = array_map(function (array $reponse_icon_data) {
-            return Icon::fromArray($reponse_icon_data);
+            return NounProject\Icon::fromArray($reponse_icon_data);
         }, $response_data['icons'] ?? []);
 
         return new Result\Success\Icons($icons);

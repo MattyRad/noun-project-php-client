@@ -18,16 +18,16 @@ class Client
         $this->http = $http;
     }
 
-    public function send(Request $request): Support\Result
+    public function send(Request $n_request): Support\Result
     {
-        $http_client = $this->http ?: new Http\Client($this->api_key, $this->api_secret);
+        $http = $this->http ?: new Http\Client($this->api_key, $this->api_secret);
 
         try {
-            $response = $http_client->request($request->getHttpType(), $request->getUri());
+            $response = $http->request($n_request->getHttpType(), $n_request->getUri());
         } catch (\Exception $e) {
             return new Request\Result\Failure\ApiRequestFailed($e->getMessage());
         }
 
-        return $request->createResult((array) json_decode($response->getBody(), true));
+        return $n_request->createResult((array) json_decode($response->getBody(), true));
     }
 }
