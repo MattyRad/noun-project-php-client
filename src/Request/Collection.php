@@ -5,20 +5,20 @@ use MattyRad\Support;
 
 class Collection extends NounProject\Request
 {
-    private $id;
+    private $collection_id_or_slug;
 
-    public function __construct(int $id)
+    public function __construct($collection_id_or_slug)
     {
-        $this->id = $id;
+        $this->collection_id_or_slug = $collection_id_or_slug;
     }
 
     public function getUri(): string
     {
-        return '/collection/' . $this->id;
+        return '/collection/' . $this->collection_id_or_slug;
     }
 
     public function createResult(array $response_data): Support\Result
     {
-        return new Result\Success\Icon($response_data['collection']);
+        return new Result\Success\Collection($response_data['collection'] ?? []);
     }
 }

@@ -6,7 +6,7 @@
 
 ## Usage
 
-Pass a `NounProject\Request` to the `NounProject\Client` to receive data from the Noun Project API. You will receive a `MattyRad\Support\Result` back.
+Pass a `NounProject\Request` to the `NounProject\Client` to receive data from the API. You will receive a `MattyRad\Support\Result` back.
 
 ### Example
 
@@ -21,7 +21,7 @@ if (! $result->isSuccess()) {
     throw new \Exception($result->getReason());
 }
 
-$icons = $result->getIcons()->toArray();
+$icons = $result->getIcons();
 ```
 
 ### Requests Types
@@ -30,7 +30,7 @@ Request types are matched to `http://api.thenounproject.com/documentation.html` 
 
 #### Collection
 
-##### Returns a single collection (by collection id or slug)
+###### Returns a single collection (by collection id or slug)
 
 ```php
 $result = $noun_project_api->send(new NounProject\Request\Collection($collection_id_or_slug = 123));
@@ -38,27 +38,27 @@ $result = $noun_project_api->send(new NounProject\Request\Collection($collection
 $collection = $result->getCollection(); // NounProject\Collection
 ```
 
-##### Returns a list of icons associated with a collection (by collection id or slug)
+###### Returns a list of icons associated with a collection (by collection id or slug)
 
 ```php
 $result = $noun_project_api->send(new NounProject\Request\CollectionIcons($collection_id_or_slug = 123));
 
-$icons = $result->getIcons(); // NounProject\Icons
+$icons = $result->getIcons(); // array of NounProject\Icon
 ```
 
 #### Collections
 
-##### Return’s a list of all collections
+###### Return’s a list of all collections
 
 ```php
 $result = $noun_project_api->send(new NounProject\Request\Collections($limit = 1000, $offset = 2, $page = 10));
 
-$collections = $result->getCollections(); // NounProject\CollectionsCollection
+$collections = $result->getCollections(); // array of NounProject\Collection
 ```
 
 #### Icon
 
-##### Returns a single icon
+###### Returns a single icon
 
 ```php
 $result = $noun_project_api->send(new NounProject\Request\Icon($icon_id_or_term = 123));
@@ -68,25 +68,25 @@ $icon = $result->getIcon(); // NounProject\Icon
 
 #### Icons
 
-##### Returns a list of icons
+###### Returns a list of icons
 
 ```php
 $result = $noun_project_api->send(new NounProject\Request\Icons($icon_id_or_term = 'feather'));
 
-$icon = $result->getIcons(); // NounProject\IconCollection
+$icon = $result->getIcons(); // array of NounProject\Icon
 ```
 
-##### Returns list of most recently uploaded icons
+###### Returns list of most recently uploaded icons
 
 ```php
 $result = $noun_project_api->send(new NounProject\Request\RecentIcons);
 
-$icon = $result->getIcons(); // NounProject\IconCollection
+$icon = $result->getIcons(); // array of NounProject\Icon
 ```
 
 #### Usage
 
-##### Returns current oauth usage and limits
+###### Returns current oauth usage and limits
 
 ```php
 $result = $noun_project_api->send(new NounProject\Request\Usage);
@@ -96,15 +96,15 @@ $usage = $result->getUsage(); // NounProject\Usage
 
 #### User
 
-##### Returns a list of collections associated with a user
+###### Returns a list of collections associated with a user
 
 ```php
 $result = $noun_project_api->send(new NounProject\Request\UserCollections($user_id = 123));
 
-$collections = $result->getCollections(); // NounProject\CollectionsCollection
+$collections = $result->getCollections(); // array of NounProject\Collection
 ```
 
-##### Returns a single collection associated with a user
+###### Returns a single collection associated with a user
 
 ```php
 $result = $noun_project_api->send(new NounProject\Request\UserCollectionsBySlug($user_id = 123, $slug = 'feather'));
@@ -112,10 +112,10 @@ $result = $noun_project_api->send(new NounProject\Request\UserCollectionsBySlug(
 $collection = $result->getCollection(); // NounProject\Collection
 ```
 
-##### Returns a list of uploads associated with a user
+###### Returns a list of uploads associated with a user
 
 ```php
 $result = $noun_project_api->send(new NounProject\Request\UserUploads($username = 'user'));
 
-$icons = $result->getIcons(); // NounProject\IconCollection
+$icons = $result->getIcons(); // array of NounProject\Icon
 ```

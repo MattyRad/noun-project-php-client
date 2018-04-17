@@ -41,6 +41,6 @@ class Collections extends NounProject\Request
 
     public function createResult(array $response_data): Support\Result
     {
-        return new Result\Success\Icons($response_data['collections']);
+        return new Result\Success\Icons($response_data['collections'] ?? []);
     }
 }
