@@ -21,6 +21,7 @@ class IconTest extends RequestTest
         $result = $n_request->createResult(['missing stuff']);
 
         $this->assertInstanceOf(Support\Result\Failure::class, $result);
+        $this->assertContains('icon', $result->getReason());
     }
 
     public function testCreateResult_returnsSuccessResultWithResponseData()

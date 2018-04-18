@@ -15,6 +15,8 @@ abstract class RequestTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected_uri, $request->getUri());
     }
 
+    // TODO: consider a different way of testing this, it gets inherited and re-tested for every child
+    // making it protected unfortunately throws warning
     public function testGetHttpType_DefaultsToGET()
     {
         $n_request = new SampleRequest;

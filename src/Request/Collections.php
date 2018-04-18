@@ -45,6 +45,6 @@ class Collections extends NounProject\Request
             return new Result\Failure\UnexpectedResponse('collections', $response_data);
         }
 
-        return new Result\Success\Icons($response_data['collections']);
+        return new Result\Success\Collections($response_data['collections']);
     }
 }
