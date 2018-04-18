@@ -1,6 +1,7 @@
 <?php namespace MattyRad\NounProject\Unit\Tests\Request;
 
 use MattyRad\NounProject;
+use MattyRad\Support;
 use MattyRad\NounProject\Unit\Tests\RequestTest;
 
 class IconTest extends RequestTest
@@ -11,6 +12,26 @@ class IconTest extends RequestTest
             [new NounProject\Request\Icon(123), '/icon/123'],
             [new NounProject\Request\Icon('feather'), '/icon/feather'],
         ];
+    }
+
+    public function testCreateResult_returnsFailureResultForUnexpectedData()
+    {
+        $n_request = new NounProject\Request\Icon('feather');
+
+        $result = $n_request->createResult(['missing stuff']);
+
+        $this->assertInstanceOf(Support\Result\Failure::class, $result);
+    }
+
+    public function testCreateResult_returnsSuccessResultWithResponseData()
+    {
+        $n_request = new NounProject\Request\Icon('feather');
+
+        $result = $n_request->createResult(['icon' => $expected = ['pretend this is icon data']]);
+
+        $this->assertInstanceOf(Support\Result\Success::class, $result);
+        $this->assertInstanceOf(NounProject\Request\Result\Success\Icon::class, $result);
+        $this->assertEquals($expected, $result->getIcon());
     }
 
     private function iconResponseData()

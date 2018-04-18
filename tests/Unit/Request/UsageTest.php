@@ -13,11 +13,20 @@ class UsageTest extends RequestTest
         ];
     }
 
-    public function testCreateResult_returnsFailureResultForUnexpectedData()
+    public function testCreateResult_returnsFailureResultForMissingUsage()
     {
         $n_request = new NounProject\Request\Usage;
 
         $result = $n_request->createResult(['missing stuff']);
+
+        $this->assertInstanceOf(Support\Result\Failure::class, $result);
+    }
+
+    public function testCreateResult_returnsFailureResultForMissingLimits()
+    {
+        $n_request = new NounProject\Request\Usage;
+
+        $result = $n_request->createResult(['usage' => []]);
 
         $this->assertInstanceOf(Support\Result\Failure::class, $result);
     }

@@ -1,6 +1,7 @@
 <?php namespace MattyRad\NounProject\Unit\Tests\Request;
 
 use MattyRad\NounProject;
+use MattyRad\Support;
 use MattyRad\NounProject\Unit\Tests\RequestTest;
 
 class RecentIconsTest extends RequestTest
@@ -13,6 +14,26 @@ class RecentIconsTest extends RequestTest
             [new NounProject\Request\RecentIcons(2, 3), '/icons/recent_uploads?offset=2&page=3'],
             [new NounProject\Request\RecentIcons(2, 3, 4), '/icons/recent_uploads?offset=2&page=3&limit=4'],
         ];
+    }
+
+    public function testCreateResult_returnsFailureResultForUnexpectedData()
+    {
+        $n_request = new NounProject\Request\RecentIcons;
+
+        $result = $n_request->createResult(['missing stuff']);
+
+        $this->assertInstanceOf(Support\Result\Failure::class, $result);
+    }
+
+    public function testCreateResult_returnsSuccessResultWithResponseData()
+    {
+        $n_request = new NounProject\Request\RecentIcons;
+
+        $result = $n_request->createResult(['icons' => $expected = ['pretend this is a set of icons']]);
+
+        $this->assertInstanceOf(Support\Result\Success::class, $result);
+        $this->assertInstanceOf(NounProject\Request\Result\Success\Icons::class, $result);
+        $this->assertEquals($expected, $result->getIcons());
     }
 
     private function recentUploadsResponseData()
