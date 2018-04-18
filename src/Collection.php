@@ -2,6 +2,7 @@
 
 use MattyRad\Support\Conformation;
 
+// TODO: this DTO may be a good candidate for "fractal" use? https://fractal.thephpleague.com/
 class Collection
 {
     use Conformation;

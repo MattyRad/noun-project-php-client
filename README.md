@@ -26,8 +26,6 @@ $icons = $result->getIcons();
 
 ### Requests Types
 
-Request types are matched to `http://api.thenounproject.com/documentation.html` as closely as possible.
-
 #### Collection
 
 ###### Returns a single collection (by collection id or slug)
@@ -96,26 +94,4 @@ $usage = $result->getUsage(); // NounProject\Usage
 
 #### User
 
-###### Returns a list of collections associated with a user
-
-```php
-$result = $noun_project_api->send(new NounProject\Request\UserCollections($user_id = 123));
-
-$collections = $result->getCollections(); // array of NounProject\Collection
-```
-
-###### Returns a single collection associated with a user
-
-```php
-$result = $noun_project_api->send(new NounProject\Request\UserCollectionsBySlug($user_id = 123, $slug = 'feather'));
-
-$collection = $result->getCollection(); // NounProject\Collection
-```
-
-###### Returns a list of uploads associated with a user
-
-```php
-$result = $noun_project_api->send(new NounProject\Request\UserUploads($username = 'user'));
-
-$icons = $result->getIcons(); // array of NounProject\Icon
-```
+###### TODO

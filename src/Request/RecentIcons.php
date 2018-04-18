@@ -22,7 +22,7 @@ class RecentIcons extends NounProject\Request
     // FIXME: this could get cleaned up
     public function getUri(): string
     {
-        $uri = '/icons/' . '?';
+        $uri = '/icons/recent_uploads?';
 
         if ($this->offset) {
             $uri .= 'offset=' . urlencode($this->offset) . '&';
@@ -36,7 +36,7 @@ class RecentIcons extends NounProject\Request
             $uri .= 'limit=' . urlencode($this->limit) . '&';
         }
 
-        return $uri;
+        return trim($uri, '&');
     }
 
     public function createResult(array $response_data): Support\Result

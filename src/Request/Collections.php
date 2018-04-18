@@ -36,7 +36,7 @@ class Collections extends NounProject\Request
             $uri .= 'limit=' . urlencode($this->limit) . '&';
         }
 
-        return $uri;
+        return trim($uri, '&');
     }
 
     public function createResult(array $response_data): Support\Result
