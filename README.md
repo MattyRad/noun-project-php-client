@@ -33,7 +33,7 @@ $icons = $result->getIcons();
 ```php
 $result = $noun_project_api->send(new NounProject\Request\Collection($collection_id_or_slug = 123));
 
-$collection = $result->getCollection(); // NounProject\Collection
+$collection = $result->getCollection();
 ```
 
 ###### Returns a list of icons associated with a collection (by collection id or slug)
@@ -41,7 +41,7 @@ $collection = $result->getCollection(); // NounProject\Collection
 ```php
 $result = $noun_project_api->send(new NounProject\Request\CollectionIcons($collection_id_or_slug = 123));
 
-$icons = $result->getIcons(); // array of NounProject\Icon
+$icons = $result->getIcons();
 ```
 
 #### Collections
@@ -51,7 +51,7 @@ $icons = $result->getIcons(); // array of NounProject\Icon
 ```php
 $result = $noun_project_api->send(new NounProject\Request\Collections($limit = 1000, $offset = 2, $page = 10));
 
-$collections = $result->getCollections(); // array of NounProject\Collection
+$collections = $result->getCollections();
 ```
 
 #### Icon
@@ -61,7 +61,7 @@ $collections = $result->getCollections(); // array of NounProject\Collection
 ```php
 $result = $noun_project_api->send(new NounProject\Request\Icon($icon_id_or_term = 123));
 
-$icon = $result->getIcon(); // NounProject\Icon
+$icon = $result->getIcon();
 ```
 
 #### Icons
@@ -71,7 +71,7 @@ $icon = $result->getIcon(); // NounProject\Icon
 ```php
 $result = $noun_project_api->send(new NounProject\Request\Icons($icon_id_or_term = 'feather'));
 
-$icon = $result->getIcons(); // array of NounProject\Icon
+$icon = $result->getIcons();
 ```
 
 ###### Returns list of most recently uploaded icons
@@ -79,7 +79,7 @@ $icon = $result->getIcons(); // array of NounProject\Icon
 ```php
 $result = $noun_project_api->send(new NounProject\Request\RecentIcons);
 
-$icon = $result->getIcons(); // array of NounProject\Icon
+$icon = $result->getIcons();
 ```
 
 #### Usage
@@ -89,7 +89,7 @@ $icon = $result->getIcons(); // array of NounProject\Icon
 ```php
 $result = $noun_project_api->send(new NounProject\Request\Usage);
 
-$usage = $result->getUsage(); // NounProject\Usage
+$usage = $result->getUsage();
 ```
 
 #### User

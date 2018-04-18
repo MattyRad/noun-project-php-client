@@ -51,10 +51,10 @@ class Icons extends NounProject\Request
 
     public function createResult(array $response_data): Support\Result
     {
-        $icons = array_map(function (array $reponse_icon_data) {
-            return NounProject\Icon::fromArray($reponse_icon_data);
-        }, $response_data['icons'] ?? []);
+        if (! array_key_exists('icons', $response_data)) {
+            return new Result\Failure\UnexpectedResponse('icons', $response_data);
+        }
 
-        return new Result\Success\Icons($icons);
+        return new Result\Success\Icons($response_data['icons']);
     }
 }

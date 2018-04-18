@@ -19,6 +19,10 @@ class Collection extends NounProject\Request
 
     public function createResult(array $response_data): Support\Result
     {
-        return new Result\Success\Collection($response_data['collection'] ?? []);
+        if (! array_key_exists('collection', $response_data)) {
+            return new Result\Failure\UnexpectedResponse('collection', $response_data);
+        }
+
+        return new Result\Success\Collection($response_data['collection']);
     }
 }

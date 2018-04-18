@@ -22,7 +22,7 @@ class Collections extends NounProject\Request
     // FIXME: this could get cleaned up
     public function getUri(): string
     {
-        $uri = '/collections/?';
+        $uri = '/collections?';
 
         if ($this->offset) {
             $uri .= 'offset=' . urlencode($this->offset) . '&';
@@ -41,6 +41,10 @@ class Collections extends NounProject\Request
 
     public function createResult(array $response_data): Support\Result
     {
-        return new Result\Success\Icons($response_data['collections'] ?? []);
+        if (! array_key_exists('collections', $response_data)) {
+            return new Result\Failure\UnexpectedResponse('collections', $response_data);
+        }
+
+        return new Result\Success\Icons($response_data['collections']);
     }
 }

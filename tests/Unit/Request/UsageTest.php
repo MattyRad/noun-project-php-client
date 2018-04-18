@@ -1,5 +1,6 @@
 <?php namespace MattyRad\NounProject\Unit\Tests\Request;
 
+use MattyRad\Support;
 use MattyRad\NounProject;
 use MattyRad\NounProject\Unit\Tests\RequestTest;
 
@@ -10,6 +11,30 @@ class UsageTest extends RequestTest
         return [
             [new NounProject\Request\Usage, '/oauth/usage'],
         ];
+    }
+
+    public function testCreateResult_returnsFailureResultForUnexpectedData()
+    {
+        $n_request = new NounProject\Request\Usage;
+
+        $result = $n_request->createResult(['missing stuff']);
+
+        $this->assertInstanceOf(Support\Result\Failure::class, $result);
+    }
+
+    public function testCreateResult_returnsSuccessResultWithResponseData()
+    {
+        $n_request = new NounProject\Request\Usage;
+
+        $result = $n_request->createResult([
+            'usage' => $expected_usage = ['pretend this is usage'],
+            'limits' => $expected_limits = ['pretend this is limits'],
+        ]);
+
+        $this->assertInstanceOf(Support\Result\Success::class, $result);
+        $this->assertInstanceOf(NounProject\Request\Result\Success\Usage::class, $result);
+        $this->assertEquals($expected_usage, $result->getUsage());
+        $this->assertEquals($expected_limits, $result->getLimits());
     }
 
     private function usageResponseData()

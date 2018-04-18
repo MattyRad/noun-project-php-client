@@ -12,6 +12,14 @@ class Usage extends NounProject\Request
 
     public function createResult(array $response_data): Support\Result
     {
-        return new Result\Success\Usage($response_data['usage'] ?? [], $response_data['limits'] ?? []);
+        if (! array_key_exists('usage', $response_data)) {
+            return new Result\Failure\UnexpectedResponse('usage', $response_data);
+        }
+
+        if (! array_key_exists('limits', $response_data)) {
+            return new Result\Failure\UnexpectedResponse('limits', $response_data);
+        }
+
+        return new Result\Success\Usage($response_data['usage'], $response_data['limits']);
     }
 }

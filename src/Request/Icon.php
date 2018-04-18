@@ -19,6 +19,10 @@ class Icon extends NounProject\Request
 
     public function createResult(array $response_data): Support\Result
     {
-        return new Result\Success\Icon($response_data['icon'] ?? []);
+        if (! array_key_exists('icon', $response_data)) {
+            return new Result\Failure\UnexpectedResponse('icon', $response_data);
+        }
+
+        return new Result\Success\Icon($response_data['icon']);
     }
 }

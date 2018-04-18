@@ -1,5 +1,6 @@
 <?php namespace MattyRad\NounProject\Unit\Tests\Request;
 
+use MattyRad\Support;
 use MattyRad\NounProject;
 use MattyRad\NounProject\Unit\Tests\RequestTest;
 
@@ -15,6 +16,26 @@ class IconsTest extends RequestTest
             [new NounProject\Request\Icons('feather', false, 2), '/icons/feather?offset=2'],
             [new NounProject\Request\Icons('feather', false, 2, 2, 2), '/icons/feather?offset=2&page=2&limit=2'],
         ];
+    }
+
+    public function testCreateResult_returnsFailureResultForUnexpectedData()
+    {
+        $n_request = new NounProject\Request\Icons('feather');
+
+        $result = $n_request->createResult(['missing stuff']);
+
+        $this->assertInstanceOf(Support\Result\Failure::class, $result);
+    }
+
+    public function testCreateResult_returnsSuccessResultWithResponseData()
+    {
+        $n_request = new NounProject\Request\Icons('feather');
+
+        $result = $n_request->createResult(['icons' => $expected = ['pretend this is a set of icons']]);
+
+        $this->assertInstanceOf(Support\Result\Success::class, $result);
+        $this->assertInstanceOf(NounProject\Request\Result\Success\Icons::class, $result);
+        $this->assertEquals($expected, $result->getIcons());
     }
 
     private function iconsResponseData()
