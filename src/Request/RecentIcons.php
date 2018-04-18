@@ -41,10 +41,10 @@ class RecentIcons extends NounProject\Request
 
     public function createResult(array $response_data): Support\Result
     {
-        if (! array_key_exists('icons', $response_data)) {
-            return new Result\Failure\UnexpectedResponse('icons', $response_data);
+        if (! array_key_exists('recent_uploads', $response_data)) {
+            return new Result\Failure\UnexpectedResponse('recent_uploads', $response_data);
         }
 
-        return new Result\Success\Icons($response_data['icons']);
+        return new Result\Success\Icons($response_data['recent_uploads']);
     }
 }

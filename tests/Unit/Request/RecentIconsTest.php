@@ -23,14 +23,14 @@ class RecentIconsTest extends RequestTest
         $result = $n_request->createResult(['missing stuff']);
 
         $this->assertInstanceOf(Support\Result\Failure::class, $result);
-        $this->assertContains('icons', $result->getReason());
+        $this->assertContains('recent_uploads', $result->getReason());
     }
 
     public function testCreateResult_returnsSuccessResultWithResponseData()
     {
         $n_request = new NounProject\Request\RecentIcons;
 
-        $result = $n_request->createResult(['icons' => $expected = ['pretend this is a set of icons']]);
+        $result = $n_request->createResult(['recent_uploads' => $expected = ['pretend this is a set of icons']]);
 
         $this->assertInstanceOf(Support\Result\Success::class, $result);
         $this->assertInstanceOf(NounProject\Request\Result\Success\Icons::class, $result);
