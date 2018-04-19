@@ -15,9 +15,9 @@ Pass a `NounProject\Request` to the `NounProject\Client` to receive data from th
 ```php
 use MattyRad\NounProject;
 
-$noun_project_api = new NounProject\Client($key, $secret);
+$api = new NounProject\Client($key = 'abc123', $secret= 'xxxx');
 
-$result = $noun_project_api->send(new NounProject\Request\Icons($term = 'feather', $limit_to_public_domain = true));
+$result = $api->send(new NounProject\Request\Icons($term = 'feather', $public_domain = true));
 
 if (! $result->isSuccess()) {
     throw new \Exception($result->getReason());
