@@ -24,14 +24,14 @@ if (! $result->isSuccess()) {
 $icons = $result->getIcons();
 ```
 
-### Requests Types
+### API and Requests Types
 
 #### Collection
 
 ###### Returns a single collection (by collection id or slug)
 
 ```php
-$result = $noun_project_api->send(new NounProject\Request\Collection($collection_id_or_slug = 123));
+$result = $api->send(new NounProject\Request\Collection($collection_id_or_slug = 123));
 
 $collection = $result->getCollection();
 ```
@@ -39,7 +39,12 @@ $collection = $result->getCollection();
 ###### Returns a list of icons associated with a collection (by collection id or slug)
 
 ```php
-$result = $noun_project_api->send(new NounProject\Request\CollectionIcons($collection_id_or_slug = 123));
+$result = $api->send(new NounProject\Request\IconsInCollection(
+    $collection_id_or_slug = 123,
+    $offset = 1,
+    $page = 2,
+    $limit = 3
+));
 
 $icons = $result->getIcons();
 ```
@@ -49,7 +54,7 @@ $icons = $result->getIcons();
 ###### Return’s a list of all collections
 
 ```php
-$result = $noun_project_api->send(new NounProject\Request\Collections($limit = 1000, $offset = 2, $page = 10));
+$result = $api->send(new NounProject\Request\Collections($offset = 2, $page = 3, $limit = 1000));
 
 $collections = $result->getCollections();
 ```
@@ -59,7 +64,7 @@ $collections = $result->getCollections();
 ###### Returns a single icon
 
 ```php
-$result = $noun_project_api->send(new NounProject\Request\Icon($icon_id_or_term = 123));
+$result = $api->send(new NounProject\Request\Icon($icon_id_or_term = 123));
 
 $icon = $result->getIcon();
 ```
@@ -69,7 +74,13 @@ $icon = $result->getIcon();
 ###### Returns a list of icons
 
 ```php
-$result = $noun_project_api->send(new NounProject\Request\Icons($icon_id_or_term = 'feather'));
+$result = $api->send(new NounProject\Request\Icons(
+    $icon_id_or_term = 'feather'
+    $limit_to_public_domain = true;
+    $offset = 2;
+    $page = 3;
+    $limit = 4;
+));
 
 $icon = $result->getIcons();
 ```
@@ -77,7 +88,7 @@ $icon = $result->getIcons();
 ###### Returns list of most recently uploaded icons
 
 ```php
-$result = $noun_project_api->send(new NounProject\Request\RecentIcons);
+$result = $api->send(new NounProject\Request\RecentIcons);
 
 $icon = $result->getIcons();
 ```
@@ -87,9 +98,10 @@ $icon = $result->getIcons();
 ###### Returns current oauth usage and limits
 
 ```php
-$result = $noun_project_api->send(new NounProject\Request\Usage);
+$result = $api->send(new NounProject\Request\Usage);
 
 $usage = $result->getUsage();
+$limits = $result->getLimits();
 ```
 
 #### User
