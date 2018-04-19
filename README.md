@@ -1,5 +1,7 @@
 # The Noun Project PHP Client
 
+![Build Status](https://api.travis-ci.org/MattyRad/noun-project-php-client.png?branch=master) ![Code Coverage](https://img.shields.io/codecov/c/github/mattyrad/noun-project-php-client.svg)
+
 ## Installation
 
 `composer require mattyrad/noun-project-php-client`
