@@ -13,7 +13,7 @@ class ApiRequestFailed extends Support\Result\Failure
         $this->error_description = $error_description;
     }
 
-    public function getContext()
+    public function getContext(): array
     {
         return [
             'error' => $this->error_description,

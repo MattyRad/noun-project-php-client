@@ -15,7 +15,7 @@ class UnexpectedResponse extends Support\Result\Failure
         $this->response_data = $response_data;
     }
 
-    public function getContext()
+    public function getContext(): array
     {
         return [
             'missing_key' => $this->missing_key,
