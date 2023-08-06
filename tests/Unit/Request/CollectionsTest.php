@@ -23,7 +23,7 @@ class CollectionsTest extends RequestTest
         $result = $n_request->createResult(['missing stuff']);
 
         $this->assertInstanceOf(Support\Result\Failure::class, $result);
-        $this->assertContains('collections', $result->getReason());
+        $this->stringContains('collections', $result->getReason());
     }
 
     public function testCreateResult_returnsSuccessResultWithResponseData()

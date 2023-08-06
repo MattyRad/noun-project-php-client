@@ -20,7 +20,7 @@ class UsageTest extends RequestTest
         $result = $n_request->createResult(['missing stuff']);
 
         $this->assertInstanceOf(Support\Result\Failure::class, $result);
-        $this->assertContains('usage', $result->getReason());
+        $this->stringContains('usage', $result->getReason());
     }
 
     public function testCreateResult_returnsFailureResultForMissingLimits()
