@@ -5,17 +5,20 @@ use MattyRad\Support;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
 use GuzzleHttp\Psr7\Response as HttpResponse;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class ClientTest extends \PHPUnit\Framework\TestCase
 {
-    public function setUp()
+    use ProphecyTrait;
+
+    public function setUp(): void
     {
         $this->http = $this->prophesize(HttpClientInterface::class);
 
         $this->client = new NounProject\Client('key-abc123', 'secret-123', $this->http->reveal());
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset(
             $this->client,
@@ -40,7 +43,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $this->assertInstanceOf(Support\Result\Failure::class, $result);
         $this->assertInstanceOf(NounProject\Request\Result\Failure\ApiRequestFailed::class, $result);
-        $this->assertContains($error_description, $result->getReason());
+        $this->stringContains($error_description, $result->getReason());
     }
 
     public function testSend_sendsHttpRequestThroughClient()

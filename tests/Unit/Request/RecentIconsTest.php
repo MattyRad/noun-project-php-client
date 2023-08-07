@@ -23,7 +23,7 @@ class RecentIconsTest extends RequestTest
         $result = $n_request->createResult(['missing stuff']);
 
         $this->assertInstanceOf(Support\Result\Failure::class, $result);
-        $this->assertContains('recent_uploads', $result->getReason());
+        $this->stringContains('recent_uploads', $result->getReason());
     }
 
     public function testCreateResult_returnsSuccessResultWithResponseData()
